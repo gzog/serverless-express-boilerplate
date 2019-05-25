@@ -6,4 +6,7 @@ const app = express();
 
 app.use(routes.index);
 
-module.exports.handler = serverless(app);
+module.exports = {
+  app,
+  handler: serverless(app)
+};
