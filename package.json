@@ -1,0 +1,32 @@
+{
+  "name": "serverless-express-boilerplate",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "lint": "eslint .",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gzog/serverless-express-boilerplate.git"
+  },
+  "author": "George Zografos",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/gzog/serverless-express-boilerplate/issues"
+  },
+  "homepage": "https://github.com/gzog/serverless-express-boilerplate#readme",
+  "dependencies": {
+    "express": "^4.17.0",
+    "serverless-http": "^2.0.2"
+  },
+  "devDependencies": {
+    "eslint": "^5.16.0",
+    "eslint-config-airbnb-base": "^13.1.0",
+    "eslint-config-prettier": "^4.3.0",
+    "eslint-plugin-import": "^2.17.3",
+    "eslint-plugin-prettier": "^3.1.0",
+    "prettier": "^1.17.1"
+  }
+}
