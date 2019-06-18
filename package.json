@@ -19,6 +19,8 @@
   "homepage": "https://github.com/gzog/serverless-express-boilerplate#readme",
   "dependencies": {
     "express": "^4.17.0",
+    "express-openapi-validate": "^0.4.4",
+    "js-yaml": "^3.13.1",
     "serverless-http": "^2.0.2"
   },
   "devDependencies": {
