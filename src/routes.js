@@ -17,9 +17,13 @@ const routerUser = Router();
 routerUser.get(
   '/:id',
   validator.validate('get', '/user/{id}'),
-  async (req, res) => {
+  async (req, res, next) => {
     const user = await User.get(req.params.id);
-    res.json(user);
+    if (!user) {
+      next();
+    } else {
+      res.json(user);
+    }
   }
 );
 
