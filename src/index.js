@@ -1,11 +1,16 @@
 /* eslint-disable no-console */
-const fs = require('fs');
 const path = require('path');
+
+if (require.main === module) {
+  // eslint-disable-next-line global-require
+  require('dotenv').config({
+    path: path.resolve(__dirname, `../.env.${process.env.NODE_ENV}`)
+  });
+}
+
 const http = require('http');
 const express = require('express');
 const serverless = require('serverless-http');
-const jsYaml = require('js-yaml');
-const { OpenApiValidator } = require('express-openapi-validate');
 const routes = require('./routes');
 
 const app = express();
@@ -14,17 +19,7 @@ app.disable('x-powered-by');
 app.set('etag', false);
 
 app.use(express.json({ limit: '1kb' }));
-app.use(routes.index);
-
-const openApiDocument = jsYaml.safeLoad(
-  fs.readFileSync(path.resolve(__dirname, 'openapi.yaml'), 'utf-8')
-);
-
-const validator = new OpenApiValidator(openApiDocument);
-
-app.post('/echo', validator.validate('post', '/echo'), (req, res) => {
-  res.json({ output: req.body.input });
-});
+app.use('/user', routes.user);
 
 app.use((req, res) => {
   res.status(404).json();

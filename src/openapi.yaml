@@ -3,29 +3,28 @@ info:
   title: Example API with a single echo endpoint
   version: 1.0.0
 paths:
-  /echo:
-    post:
-      description: Echo input back
-      requestBody:
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                input:
-                  type: string
-              required:
-                - input
+  /user/{id}:
+    get:
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+          description: The user ID
       responses:
-        "200":
-          description: Echoed input
+        '200':
+          description: The user was found.
           content:
             application/json:
               schema:
-                type: object
-                properties:
-                  output:
-                    type: string
+                $ref: '#/components/schemas/user'
+        '404':
+          description: User not found.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/responses/error"
         default:
           $ref: "#/components/responses/error"
 components:
@@ -45,6 +44,23 @@ components:
             - message
       required:
         - error
+    User:
+      type: object
+      properties:
+        id:
+          $ref: '#/components/schemas/id'
+        email:
+          $ref: '#/components/schemas/email'
+    id:
+      type: string
+      example: 0011o10101VddMdAAJ
+    email:
+      type: string
+      format: email
+      pattern: "((?=(^.{0,80}$))(^[ ]*[a-zA-Z0-9!#$%&'*/=?^_+\\-`{|}'\\-ÄÖÜßäöü]+(?:\\.[a-zA-Z0-9!#$%&'*/=?^_+\\-`{|}'\\-ÄÖÜßäöü]+)*@(?!.*\\.com\\.com$)(?!(?:g[mn]ial|ga[m]?il|gmal|google(?:mai|nail)|(?:gi|goole|googe|googl|hto|ho|ht|hit)mail|g[g]?og[g]?le|googke|ym[ia]l|ymai(ll)?|yhoo|yahooo|yaho|yaoo|[v]?ahoo|hotmi[a]?l|hotmal|t[.]?online|t-onlin[d]?|t-onlie|t-on[li]ne|t-[on]line|t-onllne|[il]coud|iloud|(?:rcoketmail|rocketm[ai]l|rocketmai|rocktmail|rcketmail|rokcetmail)\\.com|hotmail\\.fe)\\b)(?!(?:yahoo\\.ne|aoi\\.com|gmx\\.(?:st|ne)|(?:gmc|bl[eu]win)\\.ch|(?:[dfh]mx|g[x]?m|g(?:mm|n|mx)?x)\\.(?:net|de)|t-online\\.com|ewwetel\\.net|(?:rvants|we[n]?|eeb|w[wr]?b)\\.de)$)[0-9a-zA-Z]+(-*[0-9a-zA-Z])*(\\.[0-9a-zA-Z]+(-*[0-9a-zA-Z])*)*(?!(?:\\.co[nk]|\\.c[ipl]?m|\\.coom|\\.o[c]?m|\\.dom|\\.nfo|\\.inf|\\.i[nf]o|\\.d[cardo])\\b)\\.[a-zA-Z0-9]{2,63}[ ]*$))"
+      maxLength: 63
+      minLength: 2
+      example: test@example.com
   responses:
     error:
       description: Default error response with error object

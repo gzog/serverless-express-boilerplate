@@ -5,11 +5,8 @@ provider:
   name: aws
   runtime: nodejs10.x
   region: eu-central-1
-  stage: ${opt:stage, 'dev'}
+  stage: ${env:NODE_ENV}
   memorySize: 128
-  environment:
-    NODE_ENV: ${self:provider.stage}
-    DYNAMODB_TABLE: ${self:service}-${self:provider.stage}-users
   iamRoleStatements:
     - Effect: Allow
       Action:
@@ -19,9 +16,10 @@ provider:
         - dynamodb:PutItem
         - dynamodb:UpdateItem
         - dynamodb:DeleteItem
-      Resource: "arn:aws:dynamodb:${self:provider.region}:*:table/${self:provider.environment.DYNAMODB_TABLE}"
+      Resource: "arn:aws:dynamodb:${self:provider.region}:*:table/${env:DYNAMODB_TABLE}"
 
 plugins:
+  - serverless-dotenv-plugin
   - serverless-dynamodb-local
 
 custom:
@@ -50,11 +48,11 @@ resources:
     usersTable:
       Type: AWS::DynamoDB::Table
       Properties:
-        TableName: ${self:provider.environment.DYNAMODB_TABLE}
+        TableName: ${env:DYNAMODB_TABLE}
         AttributeDefinitions:
-          - AttributeName: email
+          - AttributeName: id
             AttributeType: S
         KeySchema:
-          - AttributeName: email
+          - AttributeName: id
             KeyType: HASH
         BillingMode: PAY_PER_REQUEST
