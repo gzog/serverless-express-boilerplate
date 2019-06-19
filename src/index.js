@@ -13,7 +13,7 @@ const app = express();
 app.disable('x-powered-by');
 app.set('etag', false);
 
-app.use(express.json());
+app.use(express.json({ limit: '1kb' }));
 app.use(routes.index);
 
 const openApiDocument = jsYaml.safeLoad(
