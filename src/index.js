@@ -1,5 +1,6 @@
 /* eslint-disable no-console */
 const fs = require('fs');
+const path = require('path');
 const http = require('http');
 const express = require('express');
 const serverless = require('serverless-http');
@@ -16,7 +17,7 @@ app.use(express.json());
 app.use(routes.index);
 
 const openApiDocument = jsYaml.safeLoad(
-  fs.readFileSync('openapi.yaml', 'utf-8')
+  fs.readFileSync(path.resolve(__dirname, 'openapi.yaml'), 'utf-8')
 );
 
 const validator = new OpenApiValidator(openApiDocument);
