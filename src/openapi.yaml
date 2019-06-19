@@ -14,11 +14,8 @@ paths:
               properties:
                 input:
                   type: string
-                name:
-                  type: string
               required:
                 - input
-                - name
       responses:
         "200":
           description: Echoed input
