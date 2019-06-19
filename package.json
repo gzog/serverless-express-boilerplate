@@ -6,7 +6,8 @@
   "scripts": {
     "lint": "eslint .",
     "test": "jest",
-    "sls": "./node_modules/serverless/bin/serverless"
+    "sls": "./node_modules/serverless/bin/serverless",
+    "start": "node src/index.js"
   },
   "repository": {
     "type": "git",
