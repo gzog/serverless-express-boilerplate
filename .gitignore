@@ -62,3 +62,6 @@ typings/
 
 # Serverless
 .serverless
+
+# DynamoDB Local
+.dynamodb
