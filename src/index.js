@@ -27,21 +27,20 @@ app.use((req, res) => {
 
 // eslint-disable-next-line no-unused-vars
 app.use((err, req, res, next) => {
-  const statusCode = err.statusCode || 500;
-  const response = { error: {} };
+  const statusCode = err.status || 500;
+
+  const response = {
+    name: err.name,
+    message: err.message,
+    data: err.data
+  };
 
   if (statusCode === 500) {
-    response.error.name = 'Internal Server Error';
-  } else if (err.name === 'ValidationError') {
-    response.error = {
-      name: err.name,
-      message: err.message,
-      data: err.data
-    };
+    response.name = 'Internal Server Error';
   }
 
   if (process.env.NODE_ENV !== 'production') {
-    response.error.stackTrace = err.stack;
+    response.stackTrace = err.stack;
   }
 
   res.status(statusCode).json(response);
