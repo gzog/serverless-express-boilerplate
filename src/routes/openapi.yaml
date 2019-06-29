@@ -3,7 +3,18 @@ info:
   title: Example API with a single echo endpoint
   version: 1.0.0
 paths:
-  /user/{id}:
+  /user/sign-up:
+    post:
+      responses:
+        '200':
+          description: The user was found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/user'
+        default:
+          $ref: "#/components/responses/error"
+  /user/get/{id}:
     get:
       parameters:
         - in: path
