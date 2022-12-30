@@ -36,7 +36,7 @@
     "eslint-plugin-prettier": "^3.1.0",
     "jest": "^24.8.0",
     "prettier": "^1.17.1",
-    "serverless": "^1.45.1",
+    "serverless": "^1.83.3",
     "serverless-dotenv-plugin": "^2.1.1",
     "serverless-dynamodb-local": "^0.2.38",
     "supertest": "^4.0.2"
